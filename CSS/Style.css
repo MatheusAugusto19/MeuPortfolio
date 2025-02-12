@@ -221,19 +221,19 @@ span{
 }
 
 .portfolio-box img{
-    width: 100%;
+    width: 50%;
     transition: 0.5s ease;
 }
 
 .portfolio-box img:hover{
-    transform: scale(1.1);
+    transform: scale(1.0);
 }
 
 .portfolio-box .portfolio-layer{
     position:absolute ;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 50%;
     height: 100%;
     background: linear-gradient(transparent, var(--main-color)) ;
     display: flex;
@@ -241,7 +241,7 @@ span{
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0.4rem;
+    padding: 0.2rem;
     transform: translateY(30rem);
     transition: 0.5s ease;
 }
