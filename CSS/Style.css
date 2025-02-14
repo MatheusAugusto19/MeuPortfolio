@@ -561,4 +561,25 @@ footer{
 
 
 
-/*/media queries*/ 
+/*/media queries*/
+
+/*Botao de linguas*/
+
+.language-toggle {
+    margin-left: 1rem; /* Espaçamento à esquerda do botão */
+}
+
+.language-toggle button {
+    background-color: transparent; /* Fundo transparente */
+    color: var(--text-color); /* Cor do texto */
+    border: 1px solid var(--main-color); /* Borda com a cor principal */
+    border-radius: 0.5rem; /* Bordas arredondadas */
+    padding: 0.5rem 1rem; /* Espaçamento interno */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+}
+
+.language-toggle button:hover {
+    background-color: var(--main-color); /* Fundo ao passar o mouse */
+    color: var(--bg-color-01); /* Cor do texto ao passar o mouse */
+}

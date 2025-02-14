@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete portfolio website</title>
+    <title>Portfolio Matheus Augusto</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <!-- boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -12,43 +12,44 @@
 </head>
 <body>
     <header>
-        <a href="#" class="logo" aria-label="Logo do Portfólio">Portfolio</a>
+        <a href="#" class="logo" aria-label="Logo do Portfólio" data-en="Portfolio" data-pt="Portfólio">Portfolio</a>
         <div class="nav">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+            <a href="#home" data-en="Home" data-pt="Início">Home</a>
+            <a href="#services" data-en="Services" data-pt="Serviços">Services</a>
+            <a href="#portfolio" data-en="Portfolio" data-pt="Portfólio">Portfolio</a>
+            <a href="#contact" data-en="Contact" data-pt="Contato">Contact</a>
+            <a href="#about" data-en="About" data-pt="Sobre">About</a>
         </div>
-
+    
+        <div class="language-toggle">
+            <button id="toggleLanguage">Português</button>
+        </div>
+    
         <div class="menu-hamburguer">
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
         </div>
-
+    
         <div class="nav nav-responsive">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+            <a href="#home" data-en="Home" data-pt="Início">Home</a>
+            <a href="#services" data-en="Services" data-pt="Serviços">Services</a>
+            <a href="#portfolio" data-en="Portfolio" data-pt="Portfólio">Portfolio</a>
+            <a href="#contact" data-en="Contact" data-pt="Contato">Contact</a>
+            <a href="#about" data-en="About" data-pt="Sobre mim">About</a>
         </div>
-        
     </header>
     
     <!-- home section -->
      <section class="home" id="home">
         <div class="home-content">
-            <h3>Hello, I'm</h3>
-            <h1>Matheus Augusto</h1>
-            <!-- seção para mudar depois -->
-             <h3> Full Stack <span> Developer </span> and <span> Student </span></h3>
-
-             <p>
+            <h3 data-en="Hello, I'm" data-pt="Olá, eu sou">Hello, I'm</h3>
+            <h1 data-en="Matheus Augusto" data-pt="Matheus Augusto">Matheus Augusto</h1>
+            <h3 data-en="Full Stack Developer and Student" data-pt="Desenvolvedor Full Stack e Estudante">Full Stack Developer and Student</h3>
+            <p data-en="Junior Full Stack Developer passionate about creating innovative and intuitive web solutions. Proficient in JavaScript, Python, CSS, and HTML, with a focus on front-end development. Experienced in problem-solving and delivering results quickly. Seeking internship and professional development opportunities to enhance my skills and contribute to challenging projects." data-pt="Desenvolvedor Full Stack Junior apaixonado por criar soluções web inovadoras e intuitivas. Proficiente em JavaScript, Python, CSS e HTML, com foco em desenvolvimento front-end. Experiência em resolução de problemas e entrega rápida de resultados. Busco oportunidades de estágio e desenvolvimento profissional para aprimorar minhas habilidades e contribuir em projetos desafiadores.">
                 Junior Full Stack Developer passionate about creating innovative and intuitive web solutions. Proficient in JavaScript, Python, CSS, and HTML, with a focus on front-end development. Experienced in problem-solving and delivering results quickly. Seeking internship and professional development opportunities to enhance my skills and contribute to challenging projects.
-             </p>
-             <div class="socialmedia">
+            </p>
+                <div class="socialmedia">
                 <a href="https://www.linkedin.com/in/matheus-augusto-0284212b0" target="_blank">
                     <i class='bx bxl-linkedin'></i>
                 </a>
@@ -65,7 +66,7 @@
              </div>
 
              <div>
-                <a href="src/img/pdf/Curriculo Matheus Augusto.pdf" download class="btn">Download CV</a>
+                <a href="src/img/pdf/Curriculo Matheus Augusto.pdf" download class="btn" data-en="Donwload CV" data-pt="Baixar Curriculo">Download CV</a>
              </div>
         </div>
          
@@ -76,35 +77,29 @@
      </section>
 
      <section class="services" id="services">
-        <h2>Our <span> services</span></h2>
+    <h2>
+        <span data-en="Our" data-pt="O Que">Our</span> <span data-en="services" data-pt="Faço">services</span>
+    </h2>
 
         <div class="services-container">
             <div class="services-box">
                 <i class='bx bx-code-alt'></i>
-                <h3>Web development</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni sunt fugit corrupti assumenda, in quo adipisci at harum consectetur totam quisquam fuga facere incidunt natus distinctio maiores qui impedit ipsum debitis voluptate ea illo molestiae laboriosam? Veniam molestias labore tempora? Accusamus in perspiciatis veniam, explicabo error rem numquam provident qui?</p>
+                <h3 data-en="Web development" data-pt="Desenvolvimento Web">Web development</h3>
+                <p data-en="I'm a budding web developer passionate about creating intuitive and efficient digital experiences. With a solid foundation in HTML, CSS, JAVASCRIPT and PHP" data-pt="Sou um desenvolvedor web iniciante, apaixonado por criar experiências digitais intuitivas e eficientes. Com uma base sólida em HTML,CSS,JAVASCRIPT e PHP">I'm a budding web developer passionate about creating intuitive and efficient digital experiences. With a solid foundation in HTML, CSS, JAVASCRIPT and PHP</p>
                 <a href="#" class="btn">Read more</a>
             </div>
             <div class="services-box">
                 <i class='bx bx-code-alt'></i>
                 <h3>Front-end development</h3>
     
-                 <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni sunt fugit corrupti assumenda, in quo adipisci at harum consectetur totam quisquam fuga facere incidunt natus distinctio maiores qui impedit ipsum debitis voluptate ea illo molestiae laboriosam? Veniam molestias labore tempora? Accusamus in perspiciatis veniam, explicabo error rem numquam provident qui?
-                </p>
+                 <p data-en="Early career front-end developer with a passion for creating intuitive and visually appealing user interfaces. I have knowledge of HTML, CSS, JavaScript and PHP, and have worked on 2 personal projects, including my own menu inspired in spotify.
+                  I am always looking to improve my skills and learn new technologies" 
+                  data-pt="Desenvolvedor front-end em início de carreira com paixão por criar interfaces de usuário intuitivas e visualmente atraentes. Tenho conhecimento de HTML, CSS, JavaScript e PHP. Já trabalhei em 2 projetos pessoais, incluindo meu ppróprio menu inspirado no spotify. Estou sempre em busca de aprimorar minhas habilidades e aprender novas tecnologias">Early career front-end developer with a passion for creating intuitive and visually appealing user interfaces. I have knowledge of HTML, CSS, JavaScript and PHP, and have worked on 2 personal projects, including my own menu inspired in spotify.
+                  I am always looking to improve my skills and learn new technologies</p>
                 <a href="#" class="btn">Read more</a>
             </div>
             
             
-            <div class="services-box">
-                <i class='bx bx-code-curly' ></i>
-                <h3>Back end development</h3>
-    
-                 <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni sunt fugit corrupti assumenda, in quo adipisci at harum consectetur totam quisquam fuga facere incidunt natus distinctio maiores qui impedit ipsum debitis voluptate ea illo molestiae laboriosam? Veniam molestias labore tempora? Accusamus in perspiciatis veniam, explicabo error rem numquam provident qui?
-                </p>
-                <a href="#" class="btn">Read more</a>
-            </div> 
         </div>
 
      </section>
@@ -120,15 +115,15 @@
                 </a>
         
                 <div class="portfolio-layer">
-                    <h4>My Spotify Clone</h4>
+                    <h4 data-en="My menu inspired in Spotify" data-pt="Meu menu inspirado no Spotify">My menu inspired in Spotify</h4>
 
                         
-                        <p>
+                        <p data-en="This project is a personal recreation of the Spotify web player, built from scratch using HTML, CSS, JavaScript, and the Spotify API. The goal was to create a fully functional music player with a user interface that closely mirrors Spotify's design, while also showcasing my front-end development skills and understanding of API integration." data-pt="Este projeto é uma recriação pessoal do web player Spotify, construído do zero usando HTML, CSS, JavaScript e a API Spotify. O objetivo era criar um reprodutor de música totalmente funcional com uma interface de usuário que refletisse de perto o design do Spotify, ao mesmo tempo que demonstrasse minhas habilidades de desenvolvimento front-end e compreensão da integração de API.">
                             This project is a personal recreation of the Spotify web player, built from scratch using HTML, CSS, JavaScript, and the Spotify API. The goal was to create a fully functional music player with a user interface that closely mirrors Spotify's design, while also showcasing my front-end development skills and understanding of API integration.
 
                         </p>
             
-                    <a href="https://wontedtester366.github.io/meu-spotify/" > <i class='bx bx-link-external'>
+                    <a href="https://matheusaugusto19.github.io/meu-spotify/" > <i class='bx bx-link-external'>
                         
                     </i></a>
 
@@ -185,21 +180,23 @@
 
     <!-- contact section -->
     <section class="contact" id="contact">
-        <h2>Contact <span>Me!</span></h2>
+        <h2>
+            <span data-en="Contact" data-pt="Contate -">Contact</span> <span data-en="Me!" data-pt="Me!">Me!</span>
+        </h2>
         <form id="contact-form" method="POST" action="send_email.php">
             <div class="input-box">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required placeholder="Full Name">
+                <label for="name" data-en="Name:" data-pt="Nome:">Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Full Name" data-en="Full Name" data-pt="Nome Completo">
             </div>
             <div class="input-box">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required placeholder="E-mail">
+                <label for="email" data-en="Email:" data-pt="E-mail:">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="E-mail" data-en="E-mail" data-pt="E-mail">
             </div>
             <div class="input-box">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required placeholder="Message" cols="30" rows="8"></textarea>
-         </div>
-            <button type="submit" class="btn">Send Message</button>
+                <label for="message" data-en="Message:" data-pt="Mensagem:">Message:</label>
+                <textarea id="message" name="message" required placeholder="Message" cols="30" rows="8" data-en="Message" data-pt="Mensagem"></textarea>
+            </div>
+            <button type="submit" class="btn" data-en="Send Message" data-pt="Enviar Mensagem">Send Message</button>
         </form>
     </section>
 <!-- /contact section -->
@@ -208,21 +205,22 @@
     <!-- about section -->
 
     <section class="about" id="about">
-
         <div class="about-img">
             <img src="src/img/FotoMatheus.png" alt="profile picture">
-         
         </div>
-
+    
         <div class="about-content">
-            <h3>About Me</h3>
-            <h1>Full-Stack <span>Developer</span> and <span>Student</span></h1>
-
-            <p>
+            <h3 data-en="About Me" data-pt="Sobre Mim">About Me</h3>
+            <h1>
+                <span data-en="Full-Stack" data-pt="Full-Stack">Full-Stack</span> 
+                <span data-en="Developer and" data-pt="Desenvolvedor e">Developer</span> 
+                <span data-en="Student" data-pt="Estudante">Student</span>
+            </h1>
+    
+            <p data-en="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi eaque ratione voluptatum numquam. Maiores veniam porro modi voluptatibus. Sint incidunt omnis a error quasi cumque." data-pt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi eaque ratione voluptatum numquam. Maiores veniam porro modi voluptatibus. Sint incidunt omnis a error quasi cumque.">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi eaque ratione voluptatum numquam. Maiores veniam porro modi voluptatibus. Sint incidunt omnis a error quasi cumque.
             </p>
-            <a href="#" class="btn">Read More</a>
-
+            <a href="#" class="btn" data-en="Read More" data-pt="Leia Mais">Read More</a>
         </div>
     </section>
     <!-- /about section -->
