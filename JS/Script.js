@@ -1,3 +1,5 @@
+// script.js
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuHamburguer = document.querySelector('.menu-hamburguer');
     menuHamburguer.addEventListener('click', toggleMenu);
@@ -20,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleMenu() {
         const nav = document.querySelector('.nav-responsive');
-        console.log(nav);
         menuHamburguer.classList.toggle('change');
 
         if (menuHamburguer.classList.contains('change')) {
@@ -29,4 +30,26 @@ document.addEventListener('DOMContentLoaded', () => {
             nav.style.display = 'none';
         }
     }
+
+    // Lógica para o botão "Read more"
+    document.querySelectorAll('.read-more').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Impede o redirecionamento
+
+            const servicesBox = button.closest('.services-box');
+            const shortText = servicesBox.querySelector('.short-text');
+            const fullText = servicesBox.querySelector('.full-text');
+
+            // Alterna a visibilidade do texto curto e do texto completo
+            if (fullText.style.display === 'none') {
+                fullText.style.display = 'block';
+                shortText.style.display = 'none';
+                button.textContent = isPortuguese ? 'Ler menos' : 'Read less'; // Muda o texto do botão
+            } else {
+                fullText.style.display = 'none';
+                shortText.style.display = 'block';
+                button.textContent = isPortuguese ? 'Ler mais' : 'Read more'; // Restaura o texto do botão
+            }
+        });
+    });
 });

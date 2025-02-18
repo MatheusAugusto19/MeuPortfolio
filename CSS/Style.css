@@ -4,6 +4,7 @@
 :root{
     --main-color:#00eeff;
     --text-color: #ffffff;
+    --layer-color: #ff0000;
     --bg-color-01: #1f242d; 
     --bg-color-02: #323946;
     --color-00: #0000001a;
@@ -200,42 +201,41 @@ span{
 }
 
 
-.portfolio{
+.portfolio {
     background-color: var(--bg-color-01);
 }
 
-.portfolio-container{
+.portfolio-container {
     display: grid;
     gap: 1.2rem;
-
-
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste o tamanho mínimo conforme necessário */
 }
 
-.portfolio-box{
+.portfolio-box {
     position: relative;
     border-radius: 0.6rem;
     box-shadow: 0 0 0.6rem var(--bg-color-01);
     overflow: hidden;
-    display: flex;
-
 }
 
-.portfolio-box img{
-    width: 50%;
-    transition: 0.5s ease;
+.portfolio-box img {
+    width: 100%; /* Faz a imagem ocupar 100% do espaço do box */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Remove o espaço em branco abaixo da imagem */
+    transition: transform 0.5s ease; /* Transição suave ao passar o mouse */
 }
 
-.portfolio-box img:hover{
-    transform: scale(1.0);
+.portfolio-box img:hover {
+    transform: scale(1.05); /* Aumenta a imagem ao passar o mouse */
 }
 
-.portfolio-box .portfolio-layer{
-    position:absolute ;
+.portfolio-box .portfolio-layer {
+    position: absolute;
     bottom: 0;
     left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(transparent, var(--main-color)) ;
+    width: 100%; /* Faz a camada ocupar toda a largura do box */
+    height: 100%; /* Faz a camada ocupar toda a altura do box */
+    background: linear-gradient(transparent, var(--layer-color));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -243,21 +243,20 @@ span{
     text-align: center;
     padding: 0.2rem;
     transform: translateY(30rem);
-    transition: 0.5s ease;
+    transition: transform 0.5s ease; 
 }
 
-.portfolio-box:hover .portfolio-layer{
-    transform: translateY(0);
+.portfolio-box:hover .portfolio-layer {
+    transform: translateY(0); /* Mostra a camada ao passar o mouse */
 }
 
-.portfolio-layer h4{
+.portfolio-layer h4 {
     font-size: 1.8rem;
 }
 
 .portfolio-layer p {
     margin: 0.2rem 0 0.5rem;
 }
-
 
 .portfolio-layer a {
     display: inline-flex;
@@ -266,7 +265,7 @@ span{
     width: 3rem;
     height: 3rem;
     background: var(--text-color);
-    border-radius: 50%;   
+    border-radius: 50%;
 }
 
 .portfolio-layer p i {
