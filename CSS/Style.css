@@ -388,6 +388,29 @@ footer{
     transform: translate(0, -0.65rem) rotate(45deg);
 }
 
+/* Estilos para a funcionalidade 'Read More' melhorada */
+.services-box .full-text {
+    display: none; /* O texto completo começa escondido */
+}
+
+.services-box.expanded .short-text {
+    display: none; /* Esconde o texto curto quando o card está expandido */
+}
+
+.services-box.expanded .full-text {
+    display: block; /* Mostra o texto completo quando o card está expandido */
+}
+
+/* Adicionar ao Style.css */
+
+.nav-responsive {
+    display: none; /* Menu começa escondido */
+}
+
+.nav-responsive.active {
+    display: block; /* Menu aparece quando a classe .active é adicionada */
+}
+
 
 /*/menuhamburguer*/
 
