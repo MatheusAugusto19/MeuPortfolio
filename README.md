@@ -80,6 +80,10 @@ Se quiser, eu posso também:
 - adicionar instruções rápidas de testes (axe/lighthouse) e um pequeno script de verificação.
 
 Diga qual desses você prefere e eu implemento em seguida.
+
+---
+
+_Deployment trigger:_ Last pushed on 2025-11-16 to force CI/CD redeploy.
 # MeuPortfolio - Vite setup
 
 Este repositório contém seu portfólio estático. Eu converti a aplicação para usar Vite como dev server e builder.
