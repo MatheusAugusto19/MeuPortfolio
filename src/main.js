@@ -69,10 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {}
     updateContentLanguage();
 
-    // --- Lógica para o Formulário de Contato com AJAX (Fetch) ---
+    // --- Lógica para o Formulário de Contato com AJAX (Fetch)
+    // Improvements:
+    // - Allow form to specify a `data-endpoint` attribute (useful for dev with PHP server)
+    // - When running Vite (default dev port 5173) and no explicit endpoint, fall back to http://localhost:8000/send_email.php
+    // - Show clearer error messages when backend is unreachable
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
+        contactForm.addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const submitButton = contactForm.querySelector('button[type="submit"]');
@@ -83,32 +87,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitButton.textContent = isPortuguese ? 'Enviando...' : 'Sending...';
                 submitButton.disabled = true;
             }
-            
+
             const formData = new FormData(contactForm);
 
-            fetch('/send_email.php', { method: 'POST', body: formData })
-            .then(response => response.json())
-            .then(data => {
-                if (statusMessage) statusMessage.style.color = data.status === 'success' ? '#00eeff' : '#ff0000';
-                if (statusMessage) statusMessage.textContent = data.message;
-                if (data.status === 'success') {
-                    contactForm.reset();
+            // Determine endpoint: prefer explicit data-endpoint on the form
+            let endpoint = contactForm.getAttribute('data-endpoint') || '/send_email.php';
+            // If running the Vite dev server (commonly port 5173) and endpoint is the relative path,
+            // fall back to a local PHP dev server address so developers can test without proxying.
+            try {
+                const loc = window.location;
+                if ((loc.hostname === 'localhost' || loc.hostname === '127.0.0.1') && loc.port === '5173' && endpoint === '/send_email.php') {
+                    endpoint = 'http://localhost:8000/send_email.php';
                 }
-            })
-            .catch(error => {
+            } catch (e) {
+                // ignore
+            }
+
+            try {
+                const res = await fetch(endpoint, { method: 'POST', body: formData });
+                // If the server doesn't return JSON or returns a non-2xx, provide a helpful message
+                if (!res.ok) {
+                    const text = await res.text().catch(() => '');
+                    throw new Error('HTTP ' + res.status + ' - ' + text);
+                }
+                const data = await res.json();
+
+                if (statusMessage) statusMessage.style.color = data.status === 'success' ? '#00eeff' : '#ff0000';
+                if (statusMessage) statusMessage.textContent = data.message || (isPortuguese ? 'Resposta inválida do servidor.' : 'Invalid server response.');
+                if (data.status === 'success') contactForm.reset();
+
+            } catch (error) {
+                console.error('Contact form error:', error);
                 if (statusMessage) {
                     statusMessage.style.color = '#ff0000';
-                    statusMessage.textContent = 'Ocorreu um erro inesperado. Tente novamente.';
+                    // Friendly, actionable message
+                    statusMessage.textContent = isPortuguese ? 'Não foi possível contatar o servidor. Verifique se o PHP está rodando (ex: php -S localhost:8000) e tente novamente.' : 'Unable to reach the server. Make sure your PHP server is running (e.g. php -S localhost:8000) and try again.';
                 }
-                console.error('Error:', error);
-            })
-            .finally(() => {
+            } finally {
                 if (submitButton) {
                     submitButton.textContent = originalButtonText;
                     submitButton.disabled = false;
                 }
-                setTimeout(() => { const s = document.getElementById('form-status'); if (s) s.textContent = ''; }, 5000);
-            });
+                setTimeout(() => { const s = document.getElementById('form-status'); if (s) s.textContent = ''; }, 7000);
+            }
         });
     }
 
