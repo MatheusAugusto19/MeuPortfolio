@@ -2,8 +2,9 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // Use relative base so build can be served from any path like GitHub Pages
-  base: './',
+  // For GitHub Pages on a project repo (matheusaugusto19.github.io/MeuPortfolio),
+  // use the repo name as the base path
+  base: '/MeuPortfolio/',
   // Dev server proxy to forward PHP form submissions to a local PHP server
   server: {
     proxy: {
