@@ -129,9 +129,9 @@ span{
 }
 
 /* Decorative underline/indicator for section headings (fix color to main color) */
-.services h2 span,
-.portfolio h2 span,
-.contact h2 span {
+.portfolio h2 > span.deco,
+.services h2 > span.deco,
+.contact h2 > span.deco {
     display: inline-block;
     width: 4rem;
     height: 0.35rem;
