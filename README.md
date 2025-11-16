@@ -83,7 +83,7 @@ Diga qual desses você prefere e eu implemento em seguida.
 
 ---
 
-_Deployment trigger:_ Last pushed on 2025-11-16 to force CI/CD redeploy.
+_Deployment trigger:_ Last pushed on 2025-11-16 (updated with favicon logomatheus.png) to force CI/CD redeploy.
 # MeuPortfolio - Vite setup
 
 Este repositório contém seu portfólio estático. Eu converti a aplicação para usar Vite como dev server e builder.
