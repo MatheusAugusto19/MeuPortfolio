@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     toggleButton && toggleButton.addEventListener('click', () => {
         isPortuguese = !isPortuguese;
+        // persist choice
+        try { localStorage.setItem('lang', isPortuguese ? 'pt' : 'en'); } catch(e) {}
         updateContentLanguage();
     });
 
@@ -54,8 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Apply initial language content so elements that rely on data-en/data-pt
-    // are populated when the page loads (prevents empty areas before any click)
+    // Restore persisted language preference (if any) and apply initial content
+    try {
+        const stored = localStorage.getItem('lang');
+        if (stored === 'pt') isPortuguese = true;
+        else if (stored === 'en') isPortuguese = false;
+    } catch (e) {}
     updateContentLanguage();
 
     // --- Lógica para o Formulário de Contato com AJAX (Fetch) ---
