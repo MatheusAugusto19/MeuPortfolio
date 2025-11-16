@@ -54,6 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Apply initial language content so elements that rely on data-en/data-pt
+    // are populated when the page loads (prevents empty areas before any click)
+    updateContentLanguage();
+
     // --- Lógica para o Formulário de Contato com AJAX (Fetch) ---
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
