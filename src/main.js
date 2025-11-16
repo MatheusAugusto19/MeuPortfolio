@@ -16,7 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPortuguese = false; // Começa em inglês por padrão
 
     function updateContentLanguage() {
-        if (toggleButton) toggleButton.textContent = isPortuguese ? "English" : "Português";
+        // Show the target language on the button (e.g. show "EN" when page is PT)
+        if (toggleButton) {
+            toggleButton.textContent = isPortuguese ? 'EN' : 'PT';
+            // Keep an accessible label describing the action
+            toggleButton.setAttribute('aria-label', isPortuguese ? 'Switch to English' : 'Switch to Portuguese');
+        }
 
         document.querySelectorAll('[data-en], [data-pt]').forEach(element => {
             const text = isPortuguese ? element.getAttribute('data-pt') : element.getAttribute('data-en');
