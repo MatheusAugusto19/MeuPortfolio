@@ -1,82 +1,111 @@
-// src/main.js - entrypoint for Vite
-// Migrated from JS/Script.js to an ES module entry
+// src/main.js - Módulo de scripts principais do Portfólio
+import '../CSS/Style.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- Lógica para o Menu Hambúrguer ---
-    const menuHamburguer = document.querySelector('.menu-hamburguer');
-    const navResponsive = document.querySelector('.nav-responsive');
-    menuHamburguer && menuHamburguer.addEventListener('click', () => {
-        menuHamburguer.classList.toggle('change');
-        navResponsive.classList.toggle('active'); 
-    });
 
-    // --- Lógica para a Troca de Idioma ---
+    // -------------------------------------------------------------
+    // 1. Menu Hambúrguer (Mobile)
+    // -------------------------------------------------------------
+    const menuHamburguer = document.querySelector('.menu-hamburguer');
+    const navbar = document.querySelector('.navbar');
+    const navLinks = document.querySelectorAll('.navbar a');
+
+    if (menuHamburguer && navbar) {
+        // Toggle de abrir/fechar menu
+        menuHamburguer.addEventListener('click', () => {
+            menuHamburguer.classList.toggle('change');
+            navbar.classList.toggle('active');
+            document.body.classList.toggle('no-scroll', navbar.classList.contains('active'));
+        });
+
+        // Fechar o menu ao clicar em qualquer link da navegação
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuHamburguer.classList.remove('change');
+                navbar.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+    }
+
+    // -------------------------------------------------------------
+    // 2. Lógica para a Troca de Idioma (i18n)
+    // -------------------------------------------------------------
     const toggleButton = document.getElementById('toggleLanguage');
-    let isPortuguese = false; // Começa em inglês por padrão
+    let isPortuguese = true; // Idioma padrão do site atualizado
 
     function updateContentLanguage() {
-        // Show the target language on the button (e.g. show "EN" when page is PT)
         if (toggleButton) {
             toggleButton.textContent = isPortuguese ? 'EN' : 'PT';
-            // Keep an accessible label describing the action
-            toggleButton.setAttribute('aria-label', isPortuguese ? 'Switch to English' : 'Switch to Portuguese');
+            toggleButton.setAttribute('aria-label', isPortuguese ? 'Mudar para Inglês' : 'Switch to Portuguese');
         }
 
+        // Atualiza textos comuns
         document.querySelectorAll('[data-en], [data-pt]').forEach(element => {
             const text = isPortuguese ? element.getAttribute('data-pt') : element.getAttribute('data-en');
             if (text) element.textContent = text;
         });
 
+        // Atualiza placeholders dos inputs
         document.querySelectorAll('[data-en-placeholder], [data-pt-placeholder]').forEach(element => {
             const placeholder = isPortuguese ? element.getAttribute('data-pt-placeholder') : element.getAttribute('data-en-placeholder');
             if (placeholder) element.placeholder = placeholder;
         });
 
+        // Atualiza texto dos botões de "Saiba mais / Read more"
         document.querySelectorAll('.services-box').forEach(box => {
             const button = box.querySelector('.read-more');
             if (button) {
                 if (box.classList.contains('expanded')) {
                     button.textContent = isPortuguese ? 'Ler menos' : 'Read less';
                 } else {
-                    button.textContent = isPortuguese ? 'Ler mais' : 'Read more';
+                    button.textContent = isPortuguese ? 'Saiba mais' : 'Read more';
                 }
             }
         });
     }
-    toggleButton && toggleButton.addEventListener('click', () => {
-        isPortuguese = !isPortuguese;
-        // persist choice
-        try { localStorage.setItem('lang', isPortuguese ? 'pt' : 'en'); } catch(e) {}
-        updateContentLanguage();
-    });
 
-    // --- Lógica para o botão "Read more" ---
+    if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+            isPortuguese = !isPortuguese;
+            try {
+                localStorage.setItem('lang', isPortuguese ? 'pt' : 'en');
+            } catch (e) {
+                console.warn('Não foi possível salvar a preferência no localStorage:', e);
+            }
+            updateContentLanguage();
+        });
+    }
+
+    // Restaura a preferência de idioma gravada
+    try {
+        const storedLang = localStorage.getItem('lang');
+        if (storedLang === 'en') isPortuguese = false;
+        else if (storedLang === 'pt') isPortuguese = true;
+    } catch (e) { }
+
+    updateContentLanguage();
+
+    // -------------------------------------------------------------
+    // 3. Botão "Saiba mais" nos Cards de Serviços
+    // -------------------------------------------------------------
     document.querySelectorAll('.read-more').forEach(button => {
         button.addEventListener('click', (event) => {
             event.preventDefault();
             const servicesBox = event.target.closest('.services-box');
-            servicesBox.classList.toggle('expanded');
-            updateContentLanguage(); // Atualiza o texto do botão
+            if (servicesBox) {
+                servicesBox.classList.toggle('expanded');
+                updateContentLanguage();
+            }
         });
     });
 
-    // Restore persisted language preference (if any) and apply initial content
-    try {
-        const stored = localStorage.getItem('lang');
-        if (stored === 'pt') isPortuguese = true;
-        else if (stored === 'en') isPortuguese = false;
-    } catch (e) {}
-    updateContentLanguage();
-
-    // --- Lógica para o Formulário de Contato com AJAX (Fetch)
-    // Improvements:
-    // - Allow form to specify a `data-endpoint` attribute (useful for dev with PHP server)
-    // - When running Vite (default dev port 5173) and no explicit endpoint, fall back to http://localhost:8000/send_email.php
-    // - Show clearer error messages when backend is unreachable
+    // -------------------------------------------------------------
+    // 4. Formulário de Contato (Suporta Formspree e Backend PHP)
+    // -------------------------------------------------------------
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', async function(event) {
+        contactForm.addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const submitButton = contactForm.querySelector('button[type="submit"]');
@@ -89,55 +118,99 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const formData = new FormData(contactForm);
-
-            // Determine endpoint: prefer explicit data-endpoint on the form
-            let endpoint = contactForm.getAttribute('data-endpoint') || '/send_email.php';
-            // If running the Vite dev server (commonly port 5173) and endpoint is the relative path,
-            // fall back to a local PHP dev server address so developers can test without proxying.
-            try {
-                const loc = window.location;
-                if ((loc.hostname === 'localhost' || loc.hostname === '127.0.0.1') && loc.port === '5173' && endpoint === '/send_email.php') {
-                    endpoint = 'http://localhost:8000/send_email.php';
-                }
-            } catch (e) {
-                // ignore
-            }
+            const actionUrl = contactForm.getAttribute('action') || '/send_email.php';
+            const isFormspree = actionUrl.includes('formspree.io');
 
             try {
-                const res = await fetch(endpoint, { method: 'POST', body: formData });
-                // If the server doesn't return JSON or returns a non-2xx, provide a helpful message
-                if (!res.ok) {
-                    const text = await res.text().catch(() => '');
-                    throw new Error('HTTP ' + res.status + ' - ' + text);
-                }
-                const data = await res.json();
+                const response = await fetch(actionUrl, {
+                    method: 'POST',
+                    body: isFormspree ? formData : formData,
+                    headers: isFormspree ? { 'Accept': 'application/json' } : {}
+                });
 
-                if (statusMessage) statusMessage.style.color = data.status === 'success' ? '#00eeff' : '#ff0000';
-                if (statusMessage) statusMessage.textContent = data.message || (isPortuguese ? 'Resposta inválida do servidor.' : 'Invalid server response.');
-                if (data.status === 'success') contactForm.reset();
+                if (response.ok) {
+                    if (statusMessage) {
+                        statusMessage.style.color = '#00eeff';
+                        statusMessage.textContent = isPortuguese
+                            ? 'Mensagem enviada com sucesso!'
+                            : 'Message sent successfully!';
+                    }
+                    contactForm.reset();
+                } else {
+                    const data = await response.json().catch(() => null);
+                    throw new Error((data && data.error) ? data.error : 'Erro ao enviar.');
+                }
 
             } catch (error) {
-                console.error('Contact form error:', error);
+                console.error('Erro no formulário de contato:', error);
                 if (statusMessage) {
-                    statusMessage.style.color = '#ff0000';
-                    // Friendly, actionable message
-                    statusMessage.textContent = isPortuguese ? 'Não foi possível contatar o servidor. Verifique se o PHP está rodando (ex: php -S localhost:8000) e tente novamente.' : 'Unable to reach the server. Make sure your PHP server is running (e.g. php -S localhost:8000) and try again.';
+                    statusMessage.style.color = '#ff4d4d';
+                    statusMessage.textContent = isPortuguese
+                        ? 'Ocorreu um erro ao enviar a mensagem. Tente novamente mais tarde.'
+                        : 'An error occurred while sending the message. Please try again later.';
                 }
             } finally {
                 if (submitButton) {
                     submitButton.textContent = originalButtonText;
                     submitButton.disabled = false;
                 }
-                setTimeout(() => { const s = document.getElementById('form-status'); if (s) s.textContent = ''; }, 7000);
+
+                // Limpa a mensagem de status após 6 segundos
+                setTimeout(() => {
+                    if (statusMessage) statusMessage.textContent = '';
+                }, 6000);
             }
         });
     }
 
-    // Inicializa a biblioteca de animações (AOS) que é carregada via CDN no index.html
+    // -------------------------------------------------------------
+    // 5. Animações de Scroll (AOS Library)
+    // -------------------------------------------------------------
     if (typeof AOS !== 'undefined' && AOS && AOS.init) {
         AOS.init({
             duration: 800,
             once: true,
+            easing: 'ease-in-out'
         });
     }
 });
+
+// -------------------------------------------------------------
+// Exibir / Ocultar Botão "Voltar ao Topo"
+// -------------------------------------------------------------
+const backToTopBtn = document.getElementById('backToTop');
+
+if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+}
+
+
+// Highlight ativo no Menu ao rolar a página
+const sections = document.querySelectorAll('section[id]');
+
+function scrollActive() {
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(current => {
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 150;
+        const sectionId = current.getAttribute('id');
+        const navLink = document.querySelector('.navbar a[href*=' + sectionId + ']');
+
+        if (navLink) {
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                navLink.style.color = 'var(--main-color)';
+            } else {
+                navLink.style.color = 'var(--text-color)';
+            }
+        }
+    });
+}
+
+window.addEventListener('scroll', scrollActive);
